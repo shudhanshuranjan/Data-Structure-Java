@@ -1,1 +1,127 @@
 
+package DATA;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Graph {
+	
+	public class Vertex
+	{
+		HashMap<String, Integer>nbrs=new HashMap<>();
+	}
+
+	HashMap<String, Vertex> vtces;
+	public Graph()
+	{
+		 vtces=new HashMap<>();
+	}
+	
+	public int numVertex()
+	{
+		return this.vtces.size();
+	}
+	
+	public boolean containsVertex(String vname)
+	{
+		return vtces.containsKey(vname);
+	}
+	
+	public void addVertex(String vname)
+	{
+		Vertex vtx=new Vertex();
+		vtces.put(vname, vtx);
+	}
+	
+	public void removevertex(String vname)
+	{
+		Vertex vtx=vtces.get(vname);
+	   ArrayList<String> list=new ArrayList<>(vtx.nbrs.keySet());
+	   for(String key : list)
+	   {
+		   Vertex vtxnbr=vtces.get(key);
+		   vtxnbr.nbrs.remove(vname);
+	   }
+	   vtces.remove(vname);
+	}
+	
+	public int numofedges()
+	{
+		int count=0;
+		ArrayList<String> keys=new ArrayList<>(vtces.keySet());
+		for(String key : keys)
+		{
+			Vertex vtx=vtces.get(key);
+			count +=vtx.nbrs.size();
+		}
+		return count/2;
+	}
+	 
+	public boolean containsEdge(String vname1, String vname2)
+	{
+	 Vertex vtx1=vtces.get(vname1);
+	 Vertex vtx2=vtces.get(vname2);
+	 
+	 if(vtx1==null ||	vtx2==null || !vtx1.nbrs.containsKey(vname2))
+	 {
+		 return false;
+	 }
+	 return true;
+	}
+
+	public void addedge(String vname1, String vname2, int cost)
+	{
+		Vertex vtx1=vtces.get(vname1);
+		Vertex vtx2=vtces.get(vname2);
+		if(vtx1==null || vtx2==null || vtx1.nbrs.containsKey(vname2))
+		{
+			return ;
+		}
+		
+		vtx1.nbrs.put(vname2,cost);
+		vtx2.nbrs.put(vname1,cost);	
+	 }
+
+	public void removeedge(String vname1, String vname2)
+	{
+		Vertex vtx1=vtces.get(vname1);
+		Vertex vtx2=vtces.get(vname2);
+		if(vtx1==null || vtx2==null || !vtx1.nbrs.containsKey(vname2))
+		{
+			return ;
+		}
+		
+		vtx1.nbrs.remove(vname2);
+		vtx2.nbrs.remove(vname1);	
+	 }
+	
+	public void display()
+	{
+		ArrayList<String> keys=new ArrayList<>(vtces.keySet());
+		for(String key: keys)
+		{
+			Vertex k=vtces.get(key);
+			System.out.println(key +"--" + k.nbrs);
+		}
+	}
+	
+    public boolean haspath(String vname1, String vname2, HashMap<String, Boolean> processed)
+    {
+    	processed.put(vname1, true);
+    	if(containsEdge(vname1,vname2))
+    	{
+    		return true;
+    	}
+    	
+    	Vertex vtx=vtces.get(vname1);
+    	ArrayList<String> nbrs=new ArrayList<>(vtx.nbrs.keySet());
+    	for(String nbr : nbrs)
+    	{
+            if(!processed.containsKey(nbr)&& haspath(nbr,vname2,processed) )
+            {
+           return true;
+            }
+    	}
+    	return false;
+    }
+}
