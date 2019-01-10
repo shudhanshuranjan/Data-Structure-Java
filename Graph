@@ -1,8 +1,8 @@
-
 package DATA;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Graph {
 	
@@ -124,4 +124,511 @@ public class Graph {
     	}
     	return false;
     }
+
+    private class Pair
+    {
+    	String vname;
+    	String psf;
+    }
+
+    public boolean bfs(String src, String dst) {
+
+		HashMap<String, Boolean> processed = new HashMap<>();
+
+		LinkedList<Pair> queue = new LinkedList<>();
+
+		Pair sp = new Pair();
+		sp.vname = src;
+		sp.psf = src;
+
+		queue.addLast(sp);
+		while (!queue.isEmpty()) {
+
+			Pair rp = queue.removeFirst();
+
+			if (processed.containsKey(rp.vname)) {
+				continue;
+			}
+			processed.put(rp.vname, true);
+			if (containsEdge(rp.vname, dst)) {
+				System.out.println(rp.psf + dst);
+				return true;
+			}
+			Vertex vtx = vtces.get(rp.vname);
+
+			for (String nbr : vtx.nbrs.keySet()) 
+			{
+				if (!processed.containsKey(nbr)) {
+					Pair np = new Pair();
+					np.vname = nbr;
+					np.psf = rp.psf + nbr;
+
+					queue.addLast(np);
+				}
+
+			}
+
+		}
+
+		return false;
+
+	}
+    
+    public boolean dfs(String src, String dst) {
+
+  		HashMap<String, Boolean> processed = new HashMap<>();
+
+  		LinkedList<Pair> stack = new LinkedList<>();
+
+  		Pair sp = new Pair();
+  		sp.vname = src;
+  		sp.psf = src;
+
+  		stack.addFirst(sp);
+  		while (!stack.isEmpty()) {
+
+  			Pair rp = stack.removeFirst();
+
+  			if (processed.containsKey(rp.vname)) {
+  				continue;
+  			}
+  			processed.put(rp.vname, true);
+  			if (containsEdge(rp.vname, dst)) {
+  				System.out.println(rp.psf + dst);
+  				return true;
+  			}
+  			Vertex vtx = vtces.get(rp.vname);
+
+  			for (String nbr : vtx.nbrs.keySet()) 
+  			{
+  				if (!processed.containsKey(nbr)) {
+  					Pair np = new Pair();
+  					np.vname = nbr;
+  					np.psf = rp.psf + nbr;
+
+  					stack.addFirst(np);
+  				}
+
+  			}
+
+  		}
+
+  		return false;
+
+  	}
+      
+    public void bft() {
+
+		HashMap<String, Boolean> processed = new HashMap<>();
+
+		LinkedList<Pair> queue = new LinkedList<>();
+        ArrayList<String> list=new ArrayList<>(vtces.keySet());
+        for(String key : list)
+        {
+        	if(processed.containsKey(key))
+        	{
+        		continue;
+        	}
+		Pair sp = new Pair();
+		sp.vname = key;
+		sp.psf = key;
+
+		queue.addLast(sp);
+		while (!queue.isEmpty()) {
+
+			Pair rp = queue.removeFirst();
+
+			if (processed.containsKey(rp.vname)) {
+				continue;
+			}
+			processed.put(rp.vname, true);
+			
+				System.out.println(rp.vname + " via " + rp.psf);
+			
+			Vertex vtx = vtces.get(rp.vname);
+
+			for (String nbr : vtx.nbrs.keySet()) 
+			{
+				if (!processed.containsKey(nbr)) {
+					Pair np = new Pair();
+					np.vname = nbr;
+					np.psf = rp.psf + nbr;
+
+					queue.addLast(np);
+				}
+
+			}
+
+		}
+
+	}  
+    }
+    
+    public void dft() {
+
+		HashMap<String, Boolean> processed = new HashMap<>();
+
+		LinkedList<Pair> stack= new LinkedList<>();
+        ArrayList<String> list=new ArrayList<>(vtces.keySet());
+        for(String key : list)
+        {
+        	if(processed.containsKey(key))
+        	{
+        		continue;
+        	}
+		Pair sp = new Pair();
+		sp.vname = key;
+		sp.psf = key;
+
+		stack.addLast(sp);
+		while (!stack.isEmpty()) {
+
+			Pair rp = stack.removeFirst();
+
+			if (processed.containsKey(rp.vname)) {
+				continue;
+			}
+			processed.put(rp.vname, true);
+			
+				System.out.println(rp.vname + " via " + rp.psf);
+			
+			Vertex vtx = vtces.get(rp.vname);
+
+			for (String nbr : vtx.nbrs.keySet()) 
+			{
+				if (!processed.containsKey(nbr)) {
+					Pair np = new Pair();
+					np.vname = nbr;
+					np.psf = rp.psf + nbr;
+
+					stack.addFirst(np);
+				}
+
+			}
+
+		}
+
+	}  
+    }
+    
+    public boolean iscyclic()
+    {
+    	HashMap<String, Boolean> processed = new HashMap<>();
+
+		LinkedList<Pair> queue = new LinkedList<>();
+		for (String key : vtces.keySet()) {
+        {
+        	
+        	if (processed.containsKey(key)) {
+				continue;
+			}
+		Pair sp = new Pair();
+		sp.vname = key;
+		sp.psf = key;
+
+		queue.addLast(sp);
+		while (!queue.isEmpty()) {
+
+			Pair rp = queue.removeFirst();
+
+			if (processed.containsKey(rp.vname)) {
+				return true;
+			}
+			processed.put(rp.vname, true);
+			Vertex vtx = vtces.get(rp.vname);
+
+			for (String nbr : vtx.nbrs.keySet()) 
+			{
+				if (!processed.containsKey(nbr)) {
+					Pair np = new Pair();
+					np.vname = nbr;
+					np.psf = rp.psf + nbr;
+
+					queue.addLast(np);
+				}
+
+			}
+
+		}
+
+	}
+		}
+        return false;
+    }
+     
+    public boolean isConnected() {
+
+		HashMap<String, Boolean> processed = new HashMap<>();
+       int flag=0;
+		LinkedList<Pair> queue = new LinkedList<>();
+        ArrayList<String> list=new ArrayList<>(vtces.keySet());
+        for(String key : list)
+        {
+        	if(processed.containsKey(key))
+        	{
+        		continue;
+        	}
+        	flag++;
+		Pair sp = new Pair();
+		sp.vname = key;
+		sp.psf = key;
+
+		queue.addLast(sp);
+		while (!queue.isEmpty()) {
+
+			Pair rp = queue.removeFirst();
+
+			if (processed.containsKey(rp.vname)) {
+				continue;
+			}
+			processed.put(rp.vname, true);			
+			Vertex vtx = vtces.get(rp.vname);
+
+			for (String nbr : vtx.nbrs.keySet()) 
+			{
+				if (!processed.containsKey(nbr)) {
+					Pair np = new Pair();
+					np.vname = nbr;
+					np.psf = rp.psf + nbr;
+
+					queue.addLast(np);
+				}
+
+			}
+
+		}
+	}  
+        if(flag >= 2)
+        {
+        	return false;
+        }
+        else
+        {
+        	return true;
+        }
+    }
+
+    public boolean isTree()
+    {
+    	return !iscyclic() && isConnected();
+    }
+
+    public ArrayList<ArrayList<String>> getCC()
+    {
+    	HashMap<String, Boolean> processed = new HashMap<>();
+        ArrayList<ArrayList<String>> ans=new ArrayList<>();
+		LinkedList<Pair> queue = new LinkedList<>();
+        ArrayList<String> list=new ArrayList<>(vtces.keySet());
+        for(String key : list)
+        {
+        	if(processed.containsKey(key))
+        	{
+        		continue;
+        	}
+        	ArrayList<String> subans =new ArrayList<>();
+		Pair sp = new Pair();
+		sp.vname = key;
+		sp.psf = key;
+
+		queue.addLast(sp);
+		while (!queue.isEmpty()) {
+
+			Pair rp = queue.removeFirst();
+
+			if (processed.containsKey(rp.vname)) {
+				continue;
+			}
+			processed.put(rp.vname, true);
+			
+				subans.add(rp.vname);
+			
+			Vertex vtx = vtces.get(rp.vname);
+
+			for (String nbr : vtx.nbrs.keySet()) 
+			{
+				if (!processed.containsKey(nbr)) {
+					Pair np = new Pair();
+					np.vname = nbr;
+					np.psf = rp.psf + nbr;
+
+					queue.addLast(np);
+				}
+			}
+		}
+		ans.add(subans);
+	  }
+        return ans;
+    }
+
+    private class PrimsPair implements Comparable<PrimsPair>
+    {
+        String vname;
+        String acqvname;
+        int cost;
+		@Override
+		public int compareTo(PrimsPair o) {
+			return o.cost-this.cost;
+		}
+    }
+    
+    public Graph prims()
+    {
+    	Graph mst=new Graph();
+    	HashMap<String,PrimsPair> map=new HashMap<>();
+    	HeapGeneric<PrimsPair> heap =new HeapGeneric<>();
+    	
+    	for(String key : vtces.keySet())
+    	{
+    		PrimsPair np=new PrimsPair();
+    		np.vname=key;
+    		np.acqvname=null;
+    		np.cost=Integer.MAX_VALUE;
+    		heap.add(np);
+    		map.put(key, np);
+    	}
+    	
+    	while(!heap.isEmpty())
+    	{
+    		PrimsPair rp=heap.remove();
+    		map.remove(rp.vname);
+    		if(rp.acqvname==null)
+    		{
+    			mst.addVertex(rp.vname);
+    		}
+    		else
+    		{
+    			mst.addVertex(rp.vname);
+    			mst.addedge(rp.vname, rp.acqvname, rp.cost);
+    		}
+    		
+    		for(String nbr : vtces.get(rp.vname).nbrs.keySet())
+    		{
+    			if(map.containsKey(nbr))
+    			{
+    				int oc=map.get(nbr).cost;
+    				int nc=vtces.get(rp.vname).nbrs.get(nbr);
+    				
+    				if(nc < oc)
+    				{
+    					PrimsPair gp=map.get(nbr);
+    					gp.acqvname=rp.vname;
+    					gp.cost=nc;
+    					heap.updatePriority(gp);
+    				}
+    			}
+    		}
+    		
+    		
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+		return mst;
+    	
+    }
+
+    private class DijkstraPair implements Comparable<DijkstraPair>
+    {
+        String vname;
+        String psf;
+        int cost;
+		@Override
+		public int compareTo(DijkstraPair o) {
+			return o.cost-this.cost;
+		}
+    }
+    
+    public HashMap<String,Integer> dijkstra(String src)
+    {
+    	HashMap<String,Integer> ans=new HashMap<>();
+    	HashMap<String,DijkstraPair> map=new HashMap<>();
+    	HeapGeneric<DijkstraPair> heap =new HeapGeneric<>();
+    	
+    	for(String key : vtces.keySet())
+    	{
+    		DijkstraPair np=new DijkstraPair();
+    		np.vname=key;
+    		np.psf="";
+    		np.cost=Integer.MAX_VALUE;
+    		if(key.equals(src))
+    		{
+    			np.cost=0;
+    			np.psf=key;
+    		}
+    		heap.add(np);
+    		map.put(key, np);
+    	}
+    	
+    	while(!heap.isEmpty())
+    	{
+    		DijkstraPair rp=heap.remove();
+    		map.remove(rp.vname);
+    	    ans.put(rp.vname, rp.cost);
+    		
+    		for(String nbr : vtces.get(rp.vname).nbrs.keySet())
+    		{
+    			if(map.containsKey(nbr))
+    			{
+    				int oc=map.get(nbr).cost;
+    				int nc=rp.cost+ vtces.get(rp.vname).nbrs.get(nbr);
+    				
+    				if(nc < oc)
+    				{
+    					DijkstraPair  gp=map.get(nbr);
+    					gp.psf=rp.psf + nbr;
+    					gp.cost=nc;
+    					heap.updatePriority(gp);
+    				}
+    			}
+    		}
+    		
+    		
+    	}
+ 
+		return ans;
+    	
+    }
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
