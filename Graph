@@ -79,7 +79,7 @@ public class Graph {
 		}
 		
 		vtx1.nbrs.put(vname2,cost);
-		vtx2.nbrs.put(vname1,cost);	
+	//	vtx2.nbrs.put(vname1,cost);	
 	 }
 
 	public void removeedge(String vname1, String vname2)
@@ -311,6 +311,42 @@ public class Graph {
 	}  
     }
     
+    public void topologicalSort()
+    {
+    	LinkedList<String> stack=new LinkedList<>();
+    	HashMap<String, Boolean> processed = new HashMap<>();
+    	for(String key : vtces.keySet())
+    	{
+        if(processed.containsKey(key))
+        {
+        	continue;
+        }
+    	topologicalSort(key,stack,processed);
+    	}
+    	while(!stack.isEmpty())
+    	{
+    		System.out.print(stack.pop() + " ");
+    	}
+    }
+    
+    private void topologicalSort(String key,LinkedList<String> stack,HashMap<String,Boolean> processed)
+    {
+    	Vertex vtx=vtces.get(key);
+    	processed.put(key, true);
+    	ArrayList<String> nbrss=new ArrayList<>(vtx.nbrs.keySet());
+    	for(String nbr:nbrss)
+    	{
+    		 if(processed.containsKey(nbr))
+    	        {
+    	        	continue;
+    	        }
+    		topologicalSort(nbr,stack,processed);
+    	}
+    	stack.addFirst(key);
+    }
+    
+    
+    
     public boolean iscyclic()
     {
     	HashMap<String, Boolean> processed = new HashMap<>();
@@ -517,21 +553,8 @@ public class Graph {
     				}
     			}
     		}
-    		
-    		
-    	}
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
+	}
+
 		return mst;
     	
     }
@@ -598,37 +621,5 @@ public class Graph {
     	
     }
 
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
