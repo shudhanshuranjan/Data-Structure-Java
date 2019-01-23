@@ -512,42 +512,6 @@ public class BinaryTree {
     	System.out.println(res);
     }
     
-    public void insertWithoutRecursion(int item)
-    {
-    	insertWithoutRecursion(this.root,item);
-    }
-    
-    private void insertWithoutRecursion(Node node, int item)
-    {
-    	LinkedList<Node> queue = new LinkedList<>();
-		queue.addLast(this.root);
-		while (!queue.isEmpty()) {
-			Node rn = queue.removeFirst();
-
-			if (rn.left != null)
-				queue.addLast(rn.left);
-			else
-			{
-				Node nn=new Node();
-				nn.data=item;
-				rn.left=nn;
-				break;
-			}
-			
-			if (rn.right != null)
-				queue.addLast(rn.right);
-			else
-			{
-				Node nn=new Node();
-				nn.data=item;
-				rn.right=nn;
-				break;
-			}
-				
-			}
-	
-    }
- 
     public void levelorderreverse()
     {
     	levelorderreverse(this.root);
