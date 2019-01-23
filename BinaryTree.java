@@ -1,5 +1,6 @@
 package open;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -99,14 +100,15 @@ public class BinaryTree {
 
 	private int size(Node node) {
 
-		if (node == null) {
-			return 0;
-		}
-
-		int ls = size(node.left);
-		int rs = size(node.right);
-
-		return ls + rs + 1;
+	if(node==null)
+	{
+		return 0;
+	}
+	int ls=size(node.left);
+	int rs=size(node.right);
+	
+	return ls + rs +1;
+		
 	}
 
 	public int max() {
@@ -116,19 +118,21 @@ public class BinaryTree {
 
 	private int max(Node node) {
 
-		if (node == null) {
-			return Integer.MIN_VALUE;
-		}
-		int rs = node.data;
-		int lm = max(node.left);
-		int rm = max(node.right);
-		if (lm > rs) {
-			rs = lm;
-		}
-		if (rm > rs) {
-			rs = rm;
-		}
-		return rs;
+      if(node==null) {
+    	  return Integer.MIN_VALUE;
+      }
+      int rs=node.data;
+      int lh=max(node.left);
+      int rh=max(node.right);
+      if(rs<lh)
+      {
+    	  rs=lh;
+      }
+      if(rs<rh)
+      {
+    	  rs=rh;
+      }
+      return rs;
 
 	}
 
@@ -290,5 +294,36 @@ public class BinaryTree {
 		printatlevel(node.left, count + 1, level);
 		printatlevel(node.right, count + 1, level);
 	}
+
+    public void getpath(int data)
+    {
+    	ArrayList<Integer> list=new ArrayList<>();
+    	System.out.println(getpath(this.root,data,list));
+    	System.out.println(list);
+    }
+    
+    private boolean getpath(Node root, int n, ArrayList<Integer> path) 
+    { 
+        
+        if (root == null) { 
+            return false; 
+        } 
+          
+     
+        path.add(root.data); 
+  
+        if (root.data == n) { 
+            return true; 
+        } 
+  
+        if(getpath(root.left,n,path) || getpath(root.right,n,path) )
+        	return true;
+  
+   
+        path.remove(path.size()-1); 
+  
+        return false; 
+    } 
+  
 
 }
