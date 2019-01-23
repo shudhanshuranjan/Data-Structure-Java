@@ -3,6 +3,7 @@ package open;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class BinaryTree {
 
@@ -93,12 +94,57 @@ public class BinaryTree {
 		return Math.max(lh, rh) + 1;
 	}
 
+	public int heightUsingStack()
+	{
+		return heightUsingStack(this.root);
+	}
+	
+	private int heightUsingStack(Node node)
+	{
+		LinkedList<Node> stack=new LinkedList<>();
+		stack.addLast(node);
+		Node prev=null;
+		int maxH=0;
+	
+		while(!stack.isEmpty())
+		{
+			Node curr=stack.peek();
+			if(prev==null || prev.left==curr || prev.right==curr)
+			{
+				if(curr.left!=null)
+					stack.addLast(node.left);
+				else if(curr.right!=null)
+					stack.addLast(node.right);
+			}
+			else if(curr.left==prev)
+			{
+				if(curr.right!=null)
+					stack.addLast(curr.right);
+			}
+			else
+			{
+				stack.pop();
+			}
+			prev=curr;
+			
+			if(stack.size()>maxH)
+			{
+				maxH=stack.size();
+			}
+			
+		}
+		return maxH;
+		
+		
+	}
+	
 	public int size() {
 		int s = size(this.root);
 		return s;
 	}
 
-	private int size(Node node) {
+	private int size(Node node)
+	{
 
 	if(node==null)
 	{
@@ -134,6 +180,34 @@ public class BinaryTree {
       }
       return rs;
 
+	}
+	
+	public int maxWithoutRecursion()
+	{
+		return maxWithoutRecursion(this.root);
+	}
+	
+	private int  maxWithoutRecursion(Node node)
+	{
+		LinkedList<Node> queue = new LinkedList<>();
+		queue.addLast(this.root);
+		int max=root.data;
+		while (!queue.isEmpty()) {
+			Node rn = queue.removeFirst();
+			if(max<rn.data)
+			{
+				max=rn.data;
+			}
+			if (rn.left != null)
+			{
+				queue.addLast(rn.left);
+			}
+			if (rn.right != null)
+			{
+				queue.addLast(rn.right);
+			}
+		}
+		return max;
 	}
 
 	public int min() {
@@ -172,6 +246,33 @@ public class BinaryTree {
 		}
 		return find(node.left, item) || find(node.right, item);
 	}
+	
+	public boolean findWithoutRecursion( int item)
+	{
+		return findWithoutRecursion(this.root,item);
+	}
+	
+    private boolean findWithoutRecursion(Node node,int item)
+    {
+
+		LinkedList<Node> queue = new LinkedList<>();
+		queue.addLast(this.root);
+		while (!queue.isEmpty()) {
+
+			Node rn = queue.removeFirst();
+            if(rn.data==item)
+            	return true;
+            
+			if (rn.left != null)
+				queue.addLast(rn.left);
+			if (rn.right != null)
+				queue.addLast(rn.right);
+
+		}	
+    	
+    	return false;
+    	
+    }
 
 	public void preorder() {
 		preorder(this.root);
@@ -325,5 +426,157 @@ public class BinaryTree {
         return false; 
     } 
   
+    public void preorderIteration()
+    {
+    	preorderIteration(this.root);
+    }
+    
+    private void preorderIteration(Node node)
+    {
+    	ArrayList<Integer> res=new ArrayList<>();
+    	LinkedList<Node> stack=new LinkedList<>();
+    	stack.addFirst(node);
+    	while(!stack.isEmpty())
+    	{
+    		Node temp=stack.pop();
+    		res.add(temp.data);
+    		if(temp.right!=null)
+    		 stack.addFirst(temp.right);
+    		if(temp.left!=null)
+    		stack.addFirst(temp.left);	
+    	}
+    	System.out.println(res);
+    }
+    
+    public void inorderIteration()
+    {
+    	inorderIteration(this.root);
+    }
+    
+    private void inorderIteration(Node node)
+    {
+    	ArrayList<Integer> res=new ArrayList<>();
+    	LinkedList<Node> stack=new LinkedList<>();
+    	boolean d=false;
+    	while(!d)
+    	{
+    		if(node!=null)
+    		{
+    			stack.addFirst(node);
+    			node=node.left;
+    		}
+    		else
+    		{
+    			if(stack.isEmpty())
+    			{
+    				d=true;
+    			}
+    			else
+    			{
+    			   Node temp=stack.pop();
+    			   res.add(temp.data);
+    			   node=temp.right;
+    			}
+    		}
+    	}
+    	System.out.println(res);
+    }
+    
+    public void postorderIteration() 
+    {
+    	postorderIteration(this.root);
+    }
+    
+    private void postorderIteration(Node node)
+    {
+    	ArrayList<Integer> res=new ArrayList<>();
+    	LinkedList<Node> stack1=new LinkedList<>();
+    	LinkedList<Node> stack2=new LinkedList<>();
+    	stack1.addFirst(node);
+    	while(!stack1.isEmpty())
+    	{
+    		Node temp=stack1.pop();
+    		stack2.addFirst(temp);
+    		if(temp.left!=null)
+    			stack1.addFirst(temp.left);
+    		if(temp.right!=null)
+    			stack1.addFirst(temp.right);
+    	}
+    	
+    	while(!stack2.isEmpty())
+    	{
+    		Node temp=stack2.pop();
+    		res.add(temp.data);
+    	}
+    	
+    	System.out.println(res);
+    }
+    
+    public void insertWithoutRecursion(int item)
+    {
+    	insertWithoutRecursion(this.root,item);
+    }
+    
+    private void insertWithoutRecursion(Node node, int item)
+    {
+    	LinkedList<Node> queue = new LinkedList<>();
+		queue.addLast(this.root);
+		while (!queue.isEmpty()) {
+			Node rn = queue.removeFirst();
 
+			if (rn.left != null)
+				queue.addLast(rn.left);
+			else
+			{
+				Node nn=new Node();
+				nn.data=item;
+				rn.left=nn;
+				break;
+			}
+			
+			if (rn.right != null)
+				queue.addLast(rn.right);
+			else
+			{
+				Node nn=new Node();
+				nn.data=item;
+				rn.right=nn;
+				break;
+			}
+				
+			}
+	
+    }
+ 
+    public void levelorderreverse()
+    {
+    	levelorderreverse(this.root);
+    }
+    
+    private void levelorderreverse(Node node)
+    {
+    	LinkedList<Node> queue=new LinkedList<>();
+    	LinkedList<Node> stack=new LinkedList<>();
+    	queue.addLast(node);
+    	while(!queue.isEmpty())
+    	{
+    		Node temp=queue.removeFirst();
+    		stack.addFirst(temp);
+    		if(temp.right!=null)
+            	queue.addLast(temp.right);
+    		if(temp.left!=null)
+    		queue.addLast(temp.left);
+
+    	}
+    	while(!stack.isEmpty())
+    	{
+    		System.out.print(stack.pop().data + " ");
+    	}
+    	
+    }
+    
+    
+
+
+    
 }
