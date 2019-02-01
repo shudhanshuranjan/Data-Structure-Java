@@ -134,10 +134,54 @@ public class BinaryTree {
 			
 		}
 		return maxH;
-		
-		
 	}
 	
+	public int DeepestNode()
+	{
+		LinkedList<Node> queue = new LinkedList<>();
+		queue.addLast(this.root);
+		Node rn=null;
+		while (!queue.isEmpty()) {
+
+			rn = queue.removeFirst();
+			if (rn.left != null)
+				queue.addLast(rn.left);
+			if (rn.right != null)
+				queue.addLast(rn.right);
+	}
+		return rn.data;
+	}
+	
+	public void delete(int item)  
+	{
+		LinkedList<Node> queue = new LinkedList<>();
+		queue.addLast(this.root);
+		int dep=DeepestNode();
+		while (!queue.isEmpty()) {
+			
+			Node rn = queue.removeFirst();
+			System.out.print(rn.data + " ");
+			if(rn.data==item) ////////////////////DOUBTDOUBT
+				rn.data=dep;
+			if(rn.left!=null && rn.left.data==dep )
+			{
+		
+				System.out.println(rn.left.data);
+				System.out.println("yes");
+			}
+		
+			if (rn.left != null)
+			{
+				queue.addLast(rn.left);
+			}
+			if (rn.right != null)
+			{
+				queue.addLast(rn.right);
+			}
+		}
+	}
+	
+
 	public int size() {
 		int s = size(this.root);
 		return s;
@@ -182,10 +226,12 @@ public class BinaryTree {
 
 	}
 	
+	
 	public int maxWithoutRecursion()
 	{
 		return maxWithoutRecursion(this.root);
 	}
+	
 	
 	private int  maxWithoutRecursion(Node node)
 	{
@@ -209,11 +255,15 @@ public class BinaryTree {
 		}
 		return max;
 	}
+	
+	
 
 	public int min() {
 		int mi = min(this.root);
 		return mi;
 	}
+	
+	
 
 	private int min(Node node) {
 
@@ -232,10 +282,14 @@ public class BinaryTree {
 
 		return res;
 	}
+	
+	
 
 	public boolean find(int data) {
 		return find(this.root, data);
 	}
+	
+	
 
 	private boolean find(Node node, int item) {
 		if (node == null) {
@@ -247,10 +301,14 @@ public class BinaryTree {
 		return find(node.left, item) || find(node.right, item);
 	}
 	
+	
+	
 	public boolean findWithoutRecursion( int item)
 	{
 		return findWithoutRecursion(this.root,item);
 	}
+	
+	
 	
     private boolean findWithoutRecursion(Node node,int item)
     {
@@ -271,12 +329,15 @@ public class BinaryTree {
 		}	
     	
     	return false;
-    	
     }
+    
+    
 
 	public void preorder() {
 		preorder(this.root);
 	}
+	
+	
 
 	private void preorder(Node node) {
 		if (node == null) {
@@ -286,10 +347,14 @@ public class BinaryTree {
 		preorder(node.left);
 		preorder(node.right);
 	}
+	
+	
 
 	public void postorder() {
 		postorder(this.root);
 	}
+	
+	
 
 	private void postorder(Node node) {
 		if (node == null) {
@@ -299,10 +364,14 @@ public class BinaryTree {
 		postorder(node.right);
 		System.out.print(node.data + " ");
 	}
+	
+	
 
 	public void inorder() {
 		inorder(this.root);
 	}
+	
+	
 
 	private void inorder(Node node) {
 		if (node == null) {
@@ -313,6 +382,8 @@ public class BinaryTree {
 		inorder(node.right);
 
 	}
+	
+	
 
 	public void levelorder() {
 
@@ -330,6 +401,8 @@ public class BinaryTree {
 
 		}
 	}
+	
+	
 
 	public void levelorderLW() {
 
@@ -351,6 +424,8 @@ public class BinaryTree {
 			}
 		}
 	}
+	
+	
 
 	public void zigzag() {
 
@@ -382,10 +457,14 @@ public class BinaryTree {
 			}
 		}
 	}
+	
+	
 
 	public void printatlevel(int level) {
 		printatlevel(this.root, 0, level);
 	}
+	
+	
 
 	private void printatlevel(Node node, int count, int level) {
 		if (count == level) {
@@ -395,6 +474,8 @@ public class BinaryTree {
 		printatlevel(node.left, count + 1, level);
 		printatlevel(node.right, count + 1, level);
 	}
+	
+	
 
     public void getpath(int data)
     {
@@ -403,33 +484,34 @@ public class BinaryTree {
     	System.out.println(list);
     }
     
+    
+    
     private boolean getpath(Node root, int n, ArrayList<Integer> path) 
-    { 
-        
+    {   
         if (root == null) { 
             return false; 
         } 
-          
-     
         path.add(root.data); 
   
         if (root.data == n) { 
             return true; 
         } 
-  
         if(getpath(root.left,n,path) || getpath(root.right,n,path) )
         	return true;
   
-   
         path.remove(path.size()-1); 
   
         return false; 
     } 
+    
+    
   
     public void preorderIteration()
     {
     	preorderIteration(this.root);
     }
+    
+    
     
     private void preorderIteration(Node node)
     {
@@ -448,10 +530,14 @@ public class BinaryTree {
     	System.out.println(res);
     }
     
+    
+    
     public void inorderIteration()
     {
     	inorderIteration(this.root);
     }
+    
+    
     
     private void inorderIteration(Node node)
     {
@@ -482,10 +568,15 @@ public class BinaryTree {
     	System.out.println(res);
     }
     
+    
+    
+    
     public void postorderIteration() 
     {
     	postorderIteration(this.root);
     }
+    
+    
     
     private void postorderIteration(Node node)
     {
@@ -512,10 +603,54 @@ public class BinaryTree {
     	System.out.println(res);
     }
     
+    
+    
+    public void insertWithoutRecursion(int item)
+    {
+    	insertWithoutRecursion(this.root,item);
+    }
+    
+    
+    
+    private void insertWithoutRecursion(Node node, int item)
+    {
+    	LinkedList<Node> queue = new LinkedList<>();
+		queue.addLast(this.root);
+		while (!queue.isEmpty()) {
+			Node rn = queue.removeFirst();
+
+			if (rn.left != null)
+				queue.addLast(rn.left);
+			else
+			{
+				Node nn=new Node();
+				nn.data=item;
+				rn.left=nn;
+				break;
+			}
+			
+			if (rn.right != null)
+				queue.addLast(rn.right);
+			else
+			{
+				Node nn=new Node();
+				nn.data=item;
+				rn.right=nn;
+				break;
+			}
+				
+			}
+	
+    }
+    
+    
+    
+ 
     public void levelorderreverse()
     {
     	levelorderreverse(this.root);
     }
+    
     
     private void levelorderreverse(Node node)
     {
@@ -540,7 +675,226 @@ public class BinaryTree {
     }
     
     
+    public void numofleaves()
+    {
+    	LinkedList<Node> queue = new LinkedList<>();
+		queue.addLast(this.root);
+		int count=0;
+		while (!queue.isEmpty()) {
 
+			Node rn = queue.removeFirst();
+              if(rn.left==null && rn.right==null)
+              {
+            	  count++;
+              }
+			if (rn.left != null)
+				queue.addLast(rn.left);
+			if (rn.right != null)
+				queue.addLast(rn.right);
+
+    }
+		System.out.println(count);
+    
+    }
+    
+    
+    public void noOfFullNodes()
+    {
+    	LinkedList<Node> queue = new LinkedList<>();
+		queue.addLast(this.root);
+		int count=0;
+		while (!queue.isEmpty()) {
+
+			Node rn = queue.removeFirst();
+              if(rn.left!=null && rn.right!=null)
+              {
+            	  count++;
+              }
+			if (rn.left != null)
+				queue.addLast(rn.left);
+			if (rn.right != null)
+				queue.addLast(rn.right);
+
+    }
+		System.out.println(count);
+    }
+    
+
+    public void noOfHalfNodes()
+    {
+    	LinkedList<Node> queue = new LinkedList<>();
+		queue.addLast(this.root);
+		int count=0;
+		while (!queue.isEmpty()) {
+
+			Node rn = queue.removeFirst();
+              if((rn.left!=null && rn.right==null) || (rn.left==null && rn.right!=null ))
+              {
+            	  count++;
+              }
+			if (rn.left != null)
+				queue.addLast(rn.left);
+			if (rn.right != null)
+				queue.addLast(rn.right);
+    }
+		System.out.println(count);
+   }
+    
+    
+    public boolean CheckStructrallySameTree(BinaryTree other)
+    {
+    	return CheckStructrallySameTree(this.root,other.root);
+    }
+    
+    
+    
+    private boolean CheckStructrallySameTree(Node node1, Node node2)
+    {
+    	if(node1 == null && node2 == null)
+    	{
+    		return true;
+    	}
+    	if(node1!=null && node2!=null)
+    	return (CheckStructrallySameTree(node1.left,node2.left) &&CheckStructrallySameTree(node1.right,node2.right));
+    	else
+    		return false;
+    	
+    }
+    
+    public int diameter()
+    {
+    	return diameter(this.root);
+    }
+    
+    private int diameter(Node node)
+    {
+    	if(node==null)
+    	{
+    		return 0;
+    	}
+    	
+    	int len1=height(node.left)+height(node.right)+3;
+    	int len2=Math.max(diameter(node.left),diameter(node.right));
+   
+    	return Math.max(len1, len2);
+    }
+    
+    public int width()
+    {
+      return width(this.root);	
+    }
+    
+    private int width(Node node)
+    {
+    	int h=height(node);
+    	int max=0;
+    	for(int i=0;i<=h;i++)
+    	{
+    		int width=getwidth(node,i);
+    		if(width>max)
+    			max=width;
+    	}
+    	return max;
+    }
+    
+    private int getwidth(Node node,int l)
+    {
+       if(node==null)
+       {
+    	   return 0;
+       }
+       if(l==0)
+       {
+    	   return 1;
+       }
+       else if(l>0)
+       {
+    	   int lw=getwidth(node.left,l-1);
+    	   int rw=getwidth(node.right,l-1);
+    	   return lw+rw;
+       }
+       return 0;
+    }
+  
+    public void widthWithoutRecursion()
+    {
+    	LinkedList<Node> queue=new LinkedList<>();
+    	LinkedList<Node> helper=new LinkedList<>();
+    	queue.addFirst(root);
+    	int c=0;
+    	int max=1;
+    	while(!queue.isEmpty())
+    	{
+    		
+    		Node rp=queue.removeFirst();
+    		if(rp.left!=null)
+    		{
+    			c++;
+    		helper.addFirst(rp.left);
+    		}
+    		if(rp.right!=null)
+    		{
+    			c++;
+        		helper.addFirst(rp.right);
+    		}
+    		if(queue.isEmpty())
+    		{
+    			
+    			if(c>max)
+    			{
+    				max=c;
+    			}
+    			c=0;
+    			queue=helper;
+    			helper=new LinkedList<>();	
+    		}
+    	}
+    	System.out.println(max);
+    }
+    
+    public void maximumLevelSum()
+    {
+    	LinkedList<Node> queue=new LinkedList<>();
+    	LinkedList<Node> helper=new LinkedList<>();
+    	queue.addFirst(root);
+    	int c=0;
+    	int max=root.data;
+    	while(!queue.isEmpty())
+    	{
+    		
+    		Node rp=queue.removeFirst();
+    		if(rp.left!=null)
+    		{
+    			c+=rp.left.data;
+    		helper.addFirst(rp.left);
+    		}
+    		if(rp.right!=null)
+    		{
+    			c+=rp.right.data;
+        		helper.addFirst(rp.right);
+    		}
+    		if(queue.isEmpty())
+    		{
+    			
+    			if(c>max)
+    			{
+    				max=c;
+    			}
+    			c=0;
+    			queue=helper;
+    			helper=new LinkedList<>();	
+    		}
+    	}
+    	System.out.println(max);
+    }
 
     
 }
+    
+    
+    
+    
+    
+    
+    
+   
