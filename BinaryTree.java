@@ -1,6 +1,8 @@
 package open;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Stack;
@@ -135,6 +137,7 @@ public class BinaryTree {
 		}
 		return maxH;
 	}
+
 	
 	public int DeepestNode()
 	{
@@ -181,7 +184,6 @@ public class BinaryTree {
 		}
 	}
 	
-
 	public int size() {
 		int s = size(this.root);
 		return s;
@@ -226,12 +228,10 @@ public class BinaryTree {
 
 	}
 	
-	
 	public int maxWithoutRecursion()
 	{
 		return maxWithoutRecursion(this.root);
 	}
-	
 	
 	private int  maxWithoutRecursion(Node node)
 	{
@@ -256,15 +256,11 @@ public class BinaryTree {
 		return max;
 	}
 	
-	
-
 	public int min() {
 		int mi = min(this.root);
 		return mi;
 	}
 	
-	
-
 	private int min(Node node) {
 
 		if (node == null) {
@@ -283,14 +279,10 @@ public class BinaryTree {
 		return res;
 	}
 	
-	
-
 	public boolean find(int data) {
 		return find(this.root, data);
 	}
 	
-	
-
 	private boolean find(Node node, int item) {
 		if (node == null) {
 			return false;
@@ -301,14 +293,10 @@ public class BinaryTree {
 		return find(node.left, item) || find(node.right, item);
 	}
 	
-	
-	
 	public boolean findWithoutRecursion( int item)
 	{
 		return findWithoutRecursion(this.root,item);
 	}
-	
-	
 	
     private boolean findWithoutRecursion(Node node,int item)
     {
@@ -330,14 +318,10 @@ public class BinaryTree {
     	
     	return false;
     }
-    
-    
 
 	public void preorder() {
 		preorder(this.root);
 	}
-	
-	
 
 	private void preorder(Node node) {
 		if (node == null) {
@@ -347,14 +331,10 @@ public class BinaryTree {
 		preorder(node.left);
 		preorder(node.right);
 	}
-	
-	
 
 	public void postorder() {
 		postorder(this.root);
 	}
-	
-	
 
 	private void postorder(Node node) {
 		if (node == null) {
@@ -364,14 +344,10 @@ public class BinaryTree {
 		postorder(node.right);
 		System.out.print(node.data + " ");
 	}
-	
-	
 
 	public void inorder() {
 		inorder(this.root);
 	}
-	
-	
 
 	private void inorder(Node node) {
 		if (node == null) {
@@ -382,8 +358,6 @@ public class BinaryTree {
 		inorder(node.right);
 
 	}
-	
-	
 
 	public void levelorder() {
 
@@ -402,7 +376,35 @@ public class BinaryTree {
 		}
 	}
 	
+	public void levelorderWithRecursion()
+	{
+		levelorderWithRecursion(this.root);	
+	}
 	
+	private void levelorderWithRecursion(Node node)
+	{
+		int h=height(node);
+    	int max=0;
+    	for(int i=0;i<=h;i++)
+    	{
+    		levelord(node,i);
+    	}
+	}
+	
+	private void levelord(Node node,int l)
+	{
+		if(node==null)
+		{
+			return ;
+		}
+		if(l==0)
+		{
+			System.out.print(node.data + " ");
+			return ;
+		}
+		levelord(node.left,l-1);
+		levelord(node.right,l-1);
+	}
 
 	public void levelorderLW() {
 
@@ -425,8 +427,6 @@ public class BinaryTree {
 		}
 	}
 	
-	
-
 	public void zigzag() {
 
 		int count = 0;
@@ -445,9 +445,9 @@ public class BinaryTree {
 			}
 
 			else {
-				if (rn.left != null)
-					stack.addFirst(rn.right);
 				if (rn.right != null)
+					stack.addFirst(rn.right);
+				if (rn.left != null)
 					stack.addFirst(rn.left);
 			}
 			if (queue.isEmpty()) {
@@ -457,15 +457,11 @@ public class BinaryTree {
 			}
 		}
 	}
-	
-	
 
 	public void printatlevel(int level) {
 		printatlevel(this.root, 0, level);
 	}
 	
-	
-
 	private void printatlevel(Node node, int count, int level) {
 		if (count == level) {
 			System.out.print(node.data + " ");
@@ -475,17 +471,13 @@ public class BinaryTree {
 		printatlevel(node.right, count + 1, level);
 	}
 	
-	
-
     public void getpath(int data)
     {
     	ArrayList<Integer> list=new ArrayList<>();
     	System.out.println(getpath(this.root,data,list));
     	System.out.println(list);
     }
-    
-    
-    
+        
     private boolean getpath(Node root, int n, ArrayList<Integer> path) 
     {   
         if (root == null) { 
@@ -504,14 +496,10 @@ public class BinaryTree {
         return false; 
     } 
     
-    
-  
     public void preorderIteration()
     {
     	preorderIteration(this.root);
     }
-    
-    
     
     private void preorderIteration(Node node)
     {
@@ -530,14 +518,10 @@ public class BinaryTree {
     	System.out.println(res);
     }
     
-    
-    
     public void inorderIteration()
     {
     	inorderIteration(this.root);
     }
-    
-    
     
     private void inorderIteration(Node node)
     {
@@ -568,16 +552,11 @@ public class BinaryTree {
     	System.out.println(res);
     }
     
-    
-    
-    
     public void postorderIteration() 
     {
     	postorderIteration(this.root);
     }
-    
-    
-    
+   
     private void postorderIteration(Node node)
     {
     	ArrayList<Integer> res=new ArrayList<>();
@@ -602,16 +581,12 @@ public class BinaryTree {
     	
     	System.out.println(res);
     }
-    
-    
-    
+
     public void insertWithoutRecursion(int item)
     {
     	insertWithoutRecursion(this.root,item);
     }
-    
-    
-    
+
     private void insertWithoutRecursion(Node node, int item)
     {
     	LinkedList<Node> queue = new LinkedList<>();
@@ -642,16 +617,12 @@ public class BinaryTree {
 			}
 	
     }
-    
-    
-    
- 
+
     public void levelorderreverse()
     {
     	levelorderreverse(this.root);
     }
-    
-    
+
     private void levelorderreverse(Node node)
     {
     	LinkedList<Node> queue=new LinkedList<>();
@@ -673,8 +644,7 @@ public class BinaryTree {
     	}
     	
     }
-    
-    
+
     public void numofleaves()
     {
     	LinkedList<Node> queue = new LinkedList<>();
@@ -696,8 +666,7 @@ public class BinaryTree {
 		System.out.println(count);
     
     }
-    
-    
+ 
     public void noOfFullNodes()
     {
     	LinkedList<Node> queue = new LinkedList<>();
@@ -718,7 +687,6 @@ public class BinaryTree {
     }
 		System.out.println(count);
     }
-    
 
     public void noOfHalfNodes()
     {
@@ -739,15 +707,12 @@ public class BinaryTree {
     }
 		System.out.println(count);
    }
-    
-    
+
     public boolean CheckStructrallySameTree(BinaryTree other)
     {
     	return CheckStructrallySameTree(this.root,other.root);
     }
-    
-    
-    
+
     private boolean CheckStructrallySameTree(Node node1, Node node2)
     {
     	if(node1 == null && node2 == null)
@@ -815,7 +780,7 @@ public class BinaryTree {
        }
        return 0;
     }
-  
+
     public void widthWithoutRecursion()
     {
     	LinkedList<Node> queue=new LinkedList<>();
@@ -888,7 +853,425 @@ public class BinaryTree {
     	System.out.println(max);
     }
 
+    public void rootToAllNodePath()
+    {
+    	rootToAllNodePath(this.root,this.root);
+    }
     
+    private void rootToAllNodePath(Node node,Node root)
+    {
+    	if(node==null)
+    	{
+    		return ;
+    	}
+    	ArrayList<Integer> l=new ArrayList<>();
+    	rootToAllNodePath(root,node.data,l);
+    	System.out.println(l);
+    	rootToAllNodePath(node.left,root);
+    	rootToAllNodePath(node.right,root);
+    }
+    
+    private boolean rootToAllNodePath(Node node,int item,ArrayList<Integer> list)
+    {
+    	if(node==null)
+    	{
+    		return false;
+    	}
+    	list.add(node.data);
+    	if(node.data==item)
+    	{
+    		return true;
+    	}
+    	if(rootToAllNodePath(node.left,item,list) || rootToAllNodePath(node.right,item,list))
+    		return true;
+    	
+    	list.remove(list.size()-1);
+    	return false;
+   
+    }
+    
+    public void rootToLeafPath()
+    {
+    	rootToLeafPath(this.root,this.root);
+    }
+    
+    private void rootToLeafPath(Node node,Node root)
+    {
+    	if(node==null)
+    	{
+    		return ;
+    	}
+    	if(node.left==null  && node.right==null)
+    	{
+    		ArrayList<Integer> l=new ArrayList<>();
+        	rootToLeafPath(root,node.data,l);
+        	System.out.println(l);
+    		return ;
+    	}
+    	rootToLeafPath(node.left,root);
+    	rootToLeafPath(node.right,root);
+    }
+    
+    private boolean rootToLeafPath(Node node,int item,ArrayList<Integer> list)
+    {
+    	if(node==null)
+    	{
+    		return false;
+    	}
+    	list.add(node.data);
+    	if(node.data==item)
+    	{
+    		return true;
+    	}
+    	if( rootToLeafPath(node.left,item,list) ||  rootToLeafPath(node.right,item,list))
+    		return true;
+    	
+    	list.remove(list.size()-1);
+    	return false;
+    }
+    
+    public void rootToLeafPath2()
+    {
+    	int path[]=new int[1000];
+    	rootToLeafPath2(this.root,path,0);
+    }
+    
+    private void rootToLeafPath2(Node node,int path[],int pathlen)
+    {
+    	if(node==null)
+    	{
+    		return ;
+    	}
+    	path[pathlen]=node.data;
+    	pathlen++;
+    	if(node.left==null && node.right==null)
+    	{
+    		printarray(path,pathlen);
+    	}
+    	else
+    	{
+    		rootToLeafPath2(node.left,path,pathlen);
+    		rootToLeafPath2(node.right,path,pathlen);
+    	}
+    }
+    
+    private void printarray(int path[],int l)
+    {
+    	for(int i=0;i<l;i++)
+    	{
+    		System.out.print(path[i] + " ");
+    	}
+    	System.out.println();
+    }
+    
+    public void hasPathSum(int sum)
+    {
+    	System.out.println(hasPathSum(this.root,sum));
+    }
+    
+    private boolean hasPathSum(Node node,int sum)
+    {
+    	if(node==null)
+    	{
+    		return false;
+    	}
+    	if(node.left==null && node.right==null && node.data==sum)
+    	{
+    		return true;
+    	}
+    	
+    	boolean res1=false,res2=false;
+    	res1=hasPathSum(node.left,sum-node.data);
+    	res2=hasPathSum(node.right,sum-node.data);
+    	
+    	if(res1 || res2)
+    		return true;
+    	else
+    		return false;
+    }
+    
+    public void sumOfAllNode()
+    {
+    	System.out.println(sumOfAllNode(this.root));
+    }
+    
+    private int sumOfAllNode(Node node)
+    {
+      if(node==null)
+      {
+    	  return 0;
+      }
+      int ln=sumOfAllNode(node.left);
+      int rn=sumOfAllNode(node.right);
+      return ln+rn+node.data;
+    }
+   
+    public void sumOfAllNodeWithoutRecursion()
+    {
+    	LinkedList<Node> queue=new LinkedList<>();
+    	queue.addLast(this.root);
+    	int sum=0;
+    	while(!queue.isEmpty())
+    	{
+    	  Node temp=queue.removeLast();
+    	  sum+=temp.data;
+    	  if(temp.left!=null)
+    		 queue.addFirst(temp.left);
+    	  if(temp.right!=null)
+    		  queue.addFirst(temp.right);
+    	}
+    	System.out.println(sum);
+    }
+    
+    public void convertTOMIRROR()
+    {
+    	convertTOMIRROR(this.root);
+    }
+    
+    public  Node convertTOMIRROR(Node root)
+    {
+    	if(root!=null)
+    	{
+    		convertTOMIRROR(root.left);
+    		convertTOMIRROR(root.right);
+    		Node temp=root.right;
+    		root.right=root.left;
+    		root.left=temp;
+    	}
+    	return root;
+    }
+    
+    public boolean checkMirrorOfEachOther(BinaryTree other)
+    {
+        return checkMirrorOfEachOther(this.root,other.root);
+    }
+    
+    public  boolean checkMirrorOfEachOther(Node root1, Node root2)
+    {
+       if(root1==null && root2==null)
+       {
+    	   return true;
+       }
+       if(root1 == null ||  root2==null)
+       {
+    	   return false;
+       }
+       if(root1.data!=root2.data)
+       {
+    	   return false;
+       }
+       else
+       {
+    	   return checkMirrorOfEachOther(root1.left, root2.right) || checkMirrorOfEachOther(root1.right, root2.left);
+       }
+    }
+   
+    public Node BinaryTree(int in[],int pre[],int ps, int pe, int is, int ie)
+    {
+    	if(ie<is || pe<ps )
+    	{
+    		return null;
+    	}
+    	int offset=is;
+    	for(offset=is;offset<ie;offset++)
+    	{
+    	   if(in[offset]==pre[ps])
+    	   {
+    		 break;
+    	   }
+    	}
+    	Node curr=new Node();
+    	curr.data=pre[ps];
+        curr.left= BinaryTree(in,pre,ps+1,ie-is+ps,is,offset-1);
+        curr.right=BinaryTree(in,pre,ie-is+ps+1,pe,offset+1,ie);
+        return curr;
+    }
+    
+    public void allAncestor(int item)
+    {
+    	ArrayList<Integer> list1=new ArrayList<>();
+        allAncestor(this.root,list1,item);
+        System.out.println(list1);
+    }
+        
+    public boolean allAncestor(Node node,ArrayList<Integer> list1,int item)
+    {
+    	if(node==null)
+    	{
+    		return false ;
+    	}
+    	list1.add(node.data);
+    	if(node.data==item)
+    	{
+    		return true;
+    	}
+    	if( allAncestor(node.left,list1,item)  || allAncestor(node.right,list1,item))
+    		return true;
+    	list1.remove(list1.size()-1);
+    	return false;
+    }
+    
+    public void LCA(int item1,int item2)
+    {
+      ArrayList<Integer> list1=new ArrayList<>();
+      getpath(this.root,item1,list1);
+      ArrayList<Integer> list2=new ArrayList<>();
+      getpath(this.root,item2,list2);
+      int f=0;
+      for(int i=list1.size()-1;i>=0;i--)
+      {
+    	  for(int j=list2.size()-1;j>=0;j--)
+    	  {
+    		  if(list1.get(i)==list2.get(j))
+    		  {
+    			  System.out.println(list1.get(i));
+    			  f=1;
+    			  break;
+    		  }
+    		  if(f==1)
+    			  break;
+    	  }
+      }
+      
+    }
+    
+    public void printLCA(int item1,int item2)
+    {
+      Node t=	printLCA(this.root,item1,item2);
+      System.out.println(t.data);
+    }
+    
+    private Node printLCA(Node node,int n1, int n2)
+    {
+    	if(node==null)
+    	{
+    		return null;
+    	}
+    	if(node.data==n1 || node.data==n2)
+    	{
+    		return node;
+    	}
+    	Node left=printLCA(node.left,n1,n2);
+     	Node right=printLCA(node.right,n1,n2);
+     	if(left!=null && right!=null)
+     	{
+     		return node;
+     	}
+     	return left!=null ? left : right;
+    }
+    
+    public void verticalsum()
+    {
+    	HashMap<Integer,Integer>map=new HashMap<>();
+    	vsum(map,this.root,0);
+    	System.out.println();
+    	ArrayList<Integer>m=new ArrayList<>(map.keySet());
+    	Collections.sort(m);
+    	for(int k : m)
+    		System.out.print(map.get(k)+ " ");
+    }
+    
+    private void vsum(HashMap<Integer,Integer> map, Node node,int c)
+    {
+    	if(node.left!=null)
+    		vsum(map,node.left,c-1);
+    	
+    	if(node.right!=null)
+    		vsum(map,node.right,c+1);
+    	
+    	int data=0;
+    	if(map.containsKey(c))
+    		data=map.get(c);
+    	
+    	map.put(c, data+node.data);
+   }
+ 
+    public void sumofAllRootToLeaf()
+    {
+	  System.out.println( sumofAllRootToLeaf(0,this.root));
+    }
+
+     private int sumofAllRootToLeaf(int val, Node root) {
+	
+	 if(root==null)
+	 {
+		return 0;
+	 }
+	
+	 val=val*10 + root.data;
+	 if(root.left==null && root.right==null)
+		return val;
+	
+	  return sumofAllRootToLeaf(val, root.left) + sumofAllRootToLeaf(val, root.right);
+   }
+ 
+     public void vertical()
+     {
+    	 HashMap<Integer,ArrayList<Integer>> m=new HashMap<>();
+    	vertical(this.root,m,0); 
+    	 ArrayList<Integer>li=new ArrayList<>(m.keySet());
+    	 Collections.sort(li);
+    	for(int k:li)
+    	{
+    	
+    		for(int i=m.get(k).size()-1;i>=0;i--)
+    		{
+    		 System.out.print(m.get(k).get(i) + " ");
+    		}
+    		System.out.println();	
+    	}
+     }
+     
+     private void vertical(Node node, HashMap<Integer,ArrayList<Integer>> m,int c)
+     {
+    	 if(node.left!=null)
+    		 vertical(node.left, m,c-1); 
+    	 
+    	 if(node.right!=null)
+    		 vertical(node.right, m,c+1); 
+    	 
+    	 if(m.containsKey(c))
+    		 m.get(c).add(node.data);
+    	 else
+    	 {
+    		 ArrayList<Integer>li=new ArrayList<>();
+    		 li.add(node.data);
+    		 m.put(c,li);
+    	 }
+     }
+     
+     public static boolean printAncestors(Node node, int x)
+     {
+         ArrayList<Integer>l=new ArrayList<>();
+         getpat(node,x,l);
+         for(int i=0;i<l.size()-2;i++)
+         {
+         System.out.print(l.get(i)+ " ");
+         }
+		return false;
+         
+     }
+     
+     public static boolean getpat(Node node,int x,ArrayList<Integer> l)
+     {
+         if(node==null)
+         {
+             return false;
+         }
+         l.add(node.data);
+         if(node.data==x)
+         {
+             return true;
+         }
+         if(getpat(node.left,x,l) || getpat(node.right,x,l))
+         return true;
+         
+         l.remove(l.size()-1);
+         return false;
+     }
+     
+     
+     
 }
     
     
