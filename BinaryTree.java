@@ -1,4 +1,5 @@
-package open;
+package Tree;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +8,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class BinaryTree {
+public class BT {
 
 	Scanner sc = new Scanner(System.in);
 
@@ -19,7 +20,7 @@ public class BinaryTree {
 
 	Node root = null;
 
-	BinaryTree() {
+	BT() {
 		this.root = takeInput(root, false);
 	}
 
@@ -1041,7 +1042,7 @@ public class BinaryTree {
     	return root;
     }
     
-    public boolean checkMirrorOfEachOther(BinaryTree other)
+    public boolean checkMirrorOfEachOther(BT other)
     {
         return checkMirrorOfEachOther(this.root,other.root);
     }
@@ -1270,8 +1271,58 @@ public class BinaryTree {
          return false;
      }
      
+    public boolean haspathSum(int sum)
+     {
+    	 return haspathSum(root,sum);
+     }
+
+	private boolean haspathSum(Node node, int sum)
+	{
+		if(node==null)
+		{
+			return false;
+		}
+		else
+		{
+		boolean ans=false;	
+		int subsum=sum-node.data;
+		if(subsum==0 && node.left==null && node.right==null)
+		{
+			return true;
+		}
+		if(node.left!=null)
+			 ans=ans || haspathSum(node.left,subsum);
+		if(node.right!=null)
+			 ans=ans || haspathSum(node.right,subsum);
+		return ans;
+		}
+	}
      
-     
+	public int MinDepth()
+	{
+		return MinDepth(this.root);
+	}
+	
+	private int MinDepth(Node node)
+	{
+		if(node==null)
+		{
+			return 0;
+		}
+		if(node.left==null && node.right==null)
+		{
+			return 1;
+		}
+		if(node.left==null)
+		return MinDepth(node.right)+1;
+		
+		if(node.right==null)
+		return MinDepth(node.left)+1;
+		
+		return Math.min(MinDepth(node.right),MinDepth(node.left))+1;
+	}
+	
+	
 }
     
     
