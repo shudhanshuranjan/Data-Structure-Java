@@ -60,8 +60,10 @@ public class SubsetSumProblem {
 //		System.out.println();
 //	}
 	
-	System.out.println(aa[aa.length-1][aa[0].length-1]);
-	
+	if(aa[aa.length-1][aa[0].length-1])
+	System.out.println("Yes");
+	else
+	System.out.println("No");
 	
 	
 	
