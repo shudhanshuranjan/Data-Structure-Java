@@ -709,7 +709,7 @@ public class BT {
 		System.out.println(count);
    }
 
-    public boolean CheckStructrallySameTree(BinaryTree other)
+    public boolean CheckStructrallySameTree(BT other)
     {
     	return CheckStructrallySameTree(this.root,other.root);
     }
@@ -1322,6 +1322,69 @@ public class BT {
 		return Math.min(MinDepth(node.right),MinDepth(node.left))+1;
 	}
 	
+	public ArrayList<ArrayList<Integer>> RootToLeafPathsWithSum(int sum)
+	{
+		 ArrayList<ArrayList<Integer>> res=RootToLeafPathsWithSum(root,sum);
+			return res;
+	}
+	
+	private ArrayList<ArrayList<Integer>> RootToLeafPathsWithSum(Node node,int sum)
+	{
+		if(node==null)
+		{
+			return null;
+		}
+		 ArrayList<ArrayList<Integer>> res=new ArrayList<>();
+		 ArrayList<Integer>l=new ArrayList<>();
+		 l.add(node.data);
+		RootToLeafPathsWithSum(root,sum-root.data,res,l);
+		return res;
+	}
+	
+	private void RootToLeafPathsWithSum(Node node,int sum, ArrayList<ArrayList<Integer>> res, ArrayList<Integer> l)
+	{
+		if(node.left==null && node.right==null && sum==0)
+		{
+			ArrayList<Integer>temp=new ArrayList<>();
+			temp.addAll(l);
+			res.add(temp);
+		}
+		
+		if(node.left!=null)
+		{
+			l.add(node.left.data);
+			RootToLeafPathsWithSum(node.left,sum-node.left.data,res,l);
+			l.remove(l.size()-1);
+		}
+		if(node.right!=null)
+		{
+			l.add(node.right.data);
+			RootToLeafPathsWithSum(node.right,sum-node.right.data,res,l);
+			l.remove(l.size()-1);
+		}
+		
+	}
+	
+	public void BinaryTreeToMirrorTree()
+	{
+		BinaryTreeToMirrorTree(this.root);
+	}
+	
+	private Node BinaryTreeToMirrorTree(Node node)
+	{
+		if(node==null)
+		{
+			return node;
+		}
+		
+		Node left=BinaryTreeToMirrorTree(node.left);
+		Node right=BinaryTreeToMirrorTree(node.right);
+		
+		node.left=right;
+		node.right=left;
+
+		return node;
+	}
 	
 }
     
