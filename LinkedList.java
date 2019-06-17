@@ -272,5 +272,61 @@ public class LinkedList {
     	this.tail.next=null;
     }
 
+    public boolean detectLoop()
+    {
+    	Node p=this.head;
+    	Node q=this.head;
+    	
+    	while(p!=null && q!=null && q.next!=null)
+    	{
+    		p=p.next;
+    		q=q.next.next;
+    		if(p==q)
+    		{
+    			removecycle(p,head);
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    public void removecycle(Node prev,Node curr)
+    {
+        Node ptr1=null;
+        Node ptr2=curr;
+        
+        while(true)
+        {
+            ptr1=prev;
+            while(ptr1.next!=prev && ptr1.next!=ptr2)
+            {
+                ptr1=ptr1.next;
+            }
+            if(ptr1.next==ptr2)
+            {
+                break;
+            }
+            ptr2=ptr2.next;
+        }
+        ptr1.next=null;
+    }
+    
+    public void midNode()
+    {
+    	Node a=head;
+    	Node b=head;
+    	while(b.next!=null && b.next.next!=null )
+    	{
+    		a=a.next;
+    		b=b.next.next;
+    	}
+    	System.out.println(a.data);
+    	
+    }
+
+    
+
 }
+
+
 
