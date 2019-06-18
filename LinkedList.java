@@ -1,6 +1,6 @@
 package LinkedList;
 
-
+import java.util.*;
 
 public class LinkedList {
 	
@@ -324,8 +324,79 @@ public class LinkedList {
     	
     }
 
-    
+    public boolean palindrome()
+    {
+    	Stack<Integer>s =new Stack();
+    	
+    	Node curr=head;
+    	while(curr!=null)
+    	{
+    		s.push(curr.data);
+    		curr=curr.next;
+    	}
+    	curr=head;
+    	while(curr!=null)
+    	{
+    		if(s.pop()==curr.data)
+    		{
+    			curr=curr.next;
+    		}
+    		else
+    		{
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 
+    public void removeDuplicates()
+    {
+    	Node curr=head;
+    	while(curr.next!=null)
+    	{
+    		if(curr.data==curr.next.data)
+    		{
+    			curr.next=curr.next.next;
+    		}
+    		else
+    		{
+    			curr=curr.next;
+    		}
+    	}
+    }
+    
+    public void deleteDuplicates()
+    {
+    	Node dum=new Node();
+    	dum.data=0;
+    	
+    	dum.next=head;
+    	Node prev=dum;
+    	Node curr=head;
+    	while(curr!=null)
+    	{
+    		while(curr.next!=null && prev.next.data==curr.next.data)
+    		{
+    			curr=curr.next;
+    		}
+    		
+    		if(prev.next==curr)
+    		{
+    			prev=prev.next;
+    		}
+    		else
+    		{
+    			prev.next=curr.next;
+    		}
+    		curr=curr.next;
+    		
+    	}
+    	
+    	head=dum.next;
+    	
+    }
+    
+    
 }
 
 
