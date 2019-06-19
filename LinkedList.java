@@ -395,9 +395,112 @@ public class LinkedList {
     	head=dum.next;
     	
     }
+
+    public void removeDuplicatesFromUnsorted()
+    {
+    	
+    	Node ptr1=head;
+    	Node ptr2=null;
+
+    	while(ptr1!=null && ptr1.next!=null)
+    	{
+    		ptr2=ptr1;
+    		
+    		while(ptr2.next!=null)
+    		{
+    			if(ptr1.data==ptr2.next.data)
+    			{
+    				ptr2.next=ptr2.next.next;
+    			}
+    			else
+    			{
+    				ptr2=ptr2.next;
+    			}
+    		}
+    		ptr1=ptr1.next;
+    	}
+    }
+
+    public void removeDuplicatesFromUnsorted2()
+    {
+    	HashSet<Integer>map=new HashSet<>();
+    	Node curr=head;
+    	Node prev=null;
+    	
+    	while(curr!=null)
+    	{
+    		
+    		int vl=curr.data;
+    		if(map.contains(vl))
+    		{
+    			prev.next=curr.next;
+    		}
+    		else
+    		{
+    			map.add(vl);
+    			prev=curr;
+    		}
+ 
+    	curr=curr.next;
+    	}
+    	
+    }
+    
+    public void evenOdd()
+    {
+    	
+    	Node evenstart=null;
+    	Node evenend=null;
+    	Node oddstart=null;
+    	Node oddend=null;
+    	Node curr=head;
+    	
+       while(curr!=null)
+       {
+    	   int element=curr.data;
+    	   
+    	   if(element%2==0)
+    	   {
+    		  if(evenstart==null)
+    		  {
+    			 evenstart=curr;
+    			 evenend=evenstart;
+    		  }
+    		  else
+    		  {
+    			  evenend.next=curr;
+    			  evenend=evenend.next;
+    		  }
+    	   }
+    	   else
+    	   {
+    		   if(oddstart==null)
+     		  {
+    			  oddstart=curr;
+      			 oddend=oddstart;  
+     		  }
+     		  else
+     		  {
+     			 oddend.next=curr;
+   			  oddend=oddend.next; 
+     		  } 
+    	   }
+    	   
+    	  curr=curr.next; 
+       }
+    
+       head=evenstart;
+       oddend.next=null;
+       evenend.next=oddstart;
+    }  
+
     
     
+  
+
 }
+
+
 
 
 
