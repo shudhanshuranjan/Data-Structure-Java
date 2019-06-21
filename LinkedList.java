@@ -494,7 +494,25 @@ public class LinkedList {
        evenend.next=oddstart;
     }  
 
-    
+    public void deleteMid()
+    {
+      Node fast=head;
+      Node slow=head;
+      Node dum=new Node();
+      dum.next=head;
+      Node prev=dum;
+       Node curr=head;
+      while(fast!=null && fast.next!=null)
+      {
+    	  slow=slow.next;
+    	  fast=fast=fast.next.next;
+    	  prev=prev.next;
+      }
+      
+      prev.next=slow.next;
+      head=dum.next;
+      
+    }
     
   
 
