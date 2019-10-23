@@ -18,7 +18,7 @@ public class BT {
 	}
 
 	Node root = null;
-
+	//constructor
 	BT() {
 		this.root = takeInput(root, false);
 	}
